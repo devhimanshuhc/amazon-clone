@@ -1,13 +1,23 @@
 import React from "react";
 import "./Checkout.css";
-import CheckoutProduct from "./CheckoutProduct";
 import { useStateValue } from "./StateProvider";
+import CheckoutProduct from "./CheckoutProduct";
 import Subtotal from "./Subtotal";
+import { TabTitle } from "./utils/GeneralFunctions";
+import { motion } from "framer-motion";
 
 export default function Checkout() {
+  TabTitle("Checkout-Amazon Clone");
+
   const [{ basket, user }, dispatch] = useStateValue();
 
   return (
+    <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.5 }}
+  >
     <div className="checkout">
       <div className="checkout__left">
         <img
@@ -33,5 +43,6 @@ export default function Checkout() {
         <Subtotal />
       </div>
     </div>
+    </motion.div>
   );
 }

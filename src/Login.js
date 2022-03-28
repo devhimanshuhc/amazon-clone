@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./firebase";
 import "./Login.css";
+import { TabTitle } from "./utils/GeneralFunctions";
+import { motion } from "framer-motion";
+
+
+
 
 export default function Login() {
+  TabTitle("Login-Amazon Clone");
   const history = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,6 +39,12 @@ export default function Login() {
   };
 
   return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
     <div className="login">
       <Link to="/">
         <img
@@ -75,5 +87,6 @@ export default function Login() {
         </button>
       </div>
     </div>
+    </motion.div>
   );
 }

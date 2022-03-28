@@ -7,8 +7,12 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "./reducer";
 import axios from "./axios";
+import { TabTitle } from "./utils/GeneralFunctions";
+import { motion } from "framer-motion";
 
 export default function Payment() {
+  TabTitle("Payment-Amazon Clone");
+
   const [{ basket, user }, dispatch] = useStateValue();
   const stripe = useStripe();
   const elements = useElements();
@@ -55,66 +59,73 @@ export default function Payment() {
   };
 
   return (
-    <div className="payment">
-      <div className="payment__container">
-        <h1>
-          Checkout (<Link to="/checkout">{basket?.length} items</Link>)
-        </h1>
-        <div className="payment__section">
-          <div className="payment__title">
-            <h3>Delivery Address</h3>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="payment">
+        <div className="payment__container">
+          <h1>
+            Checkout (<Link to="/checkout">{basket?.length} items</Link>)
+          </h1>
+          <div className="payment__section">
+            <div className="payment__title">
+              <h3>Delivery Address</h3>
+            </div>
+            <div className="payment__address">
+              <p>{user?.email}</p>
+              <p>45, Indra Gandhi Marg</p>
+              <p>Dehradun, India</p>
+            </div>
           </div>
-          <div className="payment__address">
-            <p>{user?.email}</p>
-            <p>45, Indra Gandhi Marg</p>
-            <p>Dehradun, India</p>
-          </div>
-        </div>
-        <div className="payment__section">
-          <div className="payment__title">
-            <h3>Review items and delivery</h3>
-          </div>
-          <div className="payment__items">
-            {basket.map((item) => (
-              <CheckoutProduct
-                id={item.id}
-                title={item.title}
-                price={item.price}
-                image={item.image}
-                rating={item.rating}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="payment__section">
-          <div className="payment__title">
-            <h3>Payment Method</h3>
-          </div>
-          <div className="payment__details">
-            <form onSubmit={handleSubmit}>
-              <CardElement onChange={handleChange} />
-
-              <div className="payment__priceContainer">
-                <CurrencyFormat
-                  renderText={(value) => (
-                    <>
-                      <h3>Order Total: {value}</h3>
-                    </>
-                  )}
-                  decimalScale={2}
-                  value={getBasketTotal(basket)}
-                  displayType={"text"}
-                  thousandSeparator={true}
-                  prefix={"$"}
+          <div className="payment__section">
+            <div className="payment__title">
+              <h3>Review items and delivery</h3>
+            </div>
+            <div className="payment__items">
+              {basket.map((item) => (
+                <CheckoutProduct
+                  id={item.id}
+                  title={item.title}
+                  price={item.price}
+                  image={item.image}
+                  rating={item.rating}
                 />
-                <button disabled={processing || disabled || succeeded}>
-                  <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
-                </button>
-              </div>
-            </form>
+              ))}
+            </div>
+          </div>
+          <div className="payment__section">
+            <div className="payment__title">
+              <h3>Payment Method</h3>
+            </div>
+            <div className="payment__details">
+              <form onSubmit={handleSubmit}>
+                <CardElement onChange={handleChange} />
+
+                <div className="payment__priceContainer">
+                  <CurrencyFormat
+                    renderText={(value) => (
+                      <>
+                        <h3>Order Total: {value}</h3>
+                      </>
+                    )}
+                    decimalScale={2}
+                    value={getBasketTotal(basket)}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    prefix={"$"}
+                  />
+                  <button disabled={processing || disabled || succeeded}>
+                    <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
