@@ -1,10 +1,10 @@
 .header {
   height: 60px;
-  width: 100%;
+
   display: flex;
   align-items: center;
   background-color: #131921;
-  position: fixed;
+  position: sticky;
   top: 0;
   z-index: 100;
 }
@@ -36,28 +36,28 @@
   background-color: #cd9042;
 }
 
-.header__optionLineOne{
-    font-size: 10px;
+.header__optionLineOne {
+  font-size: 10px;
 }
-.header__optionLineTwo{
-    font-size: 13px;
-    font-weight: 800;
-}
-
-.header__optionBasket{
-    display: flex;
-    align-items: center;
-    color: white;
+.header__optionLineTwo {
+  font-size: 13px;
+  font-weight: 800;
 }
 
-.header__basketCount{
-    margin-left: 10px;
-    margin-right: 10px;
+.header__optionBasket {
+  display: flex;
+  align-items: center;
+  color: white;
 }
 
-.header__nav{
-    display: flex;
-    justify-content: space-evenly       ;
+.header__basketCount {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .header__option {
@@ -66,5 +66,4 @@
   margin-left: 10px;
   margin-right: 10px;
   color: white;
-
 }
